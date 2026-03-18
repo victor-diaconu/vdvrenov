@@ -24,7 +24,7 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-   const handleClickSubmit = () => {
+  const handleClickSubmit = () => {
     ReactGA.event({
       category: "Contact",
       action: "Clicked Submit Button",
@@ -45,7 +45,10 @@ const Contact = () => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          _url: "https://vdvrenov.pt",
+        }),
       });
 
       if (!response.ok) {
