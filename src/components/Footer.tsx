@@ -1,4 +1,5 @@
 import { Facebook, Instagram, ArrowUp } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const navLinks = [
   { href: "#inicio", label: "Início" },
@@ -9,9 +10,18 @@ const navLinks = [
 ];
 
 const Footer = () => {
+  const { toast } = useToast();
   const handleNavClick = (href: string) => {
     const element = document.querySelector(href);
     element?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("vdvrenov@gmail.com");
+    toast({
+      title: "Email copiado!",
+      description: "O email foi copiado para a área de transferência.",
+    });
   };
 
   const handleScrollToTop = () => {
@@ -94,7 +104,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="mailto:vdvrenov@gmail.com" className="hover:text-accent transition-colors">
+                <a href="mailto:vdvrenov@gmail.com" onClick={handleCopyEmail} className="hover:text-accent transition-colors">
                   vdvrenov@gmail.com
                 </a>
               </li>

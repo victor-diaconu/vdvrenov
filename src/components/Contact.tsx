@@ -12,8 +12,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    phone: "",
+    contact: "",
     message: "",
   });
 
@@ -22,6 +21,14 @@ const Contact = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("vdvrenov@gmail.com");
+    toast({
+      title: "Email copiado!",
+      description: "O email foi copiado para a área de transferência.",
+    });
   };
 
   const handleClickSubmit = () => {
@@ -37,8 +44,6 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Send form data to FormSubmit (https://formsubmit.co/)
-      // FormSubmit forwards the data to vdvrenov@gmail.com
       const response = await fetch("https://formsubmit.co/ajax/3992fe102fca0fe818afe3be36b88958", {
         method: "POST",
         headers: {
@@ -60,7 +65,7 @@ const Contact = () => {
         description: "Entraremos em contacto consigo brevemente.",
       });
 
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", contact: "", message: "" });
     } catch (err) {
       console.error("Failed to send email", err);
       toast({
@@ -82,7 +87,6 @@ const Contact = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-6">
             Peça o seu orçamento grátis
           </h2>
-
         </div>
 
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
@@ -91,7 +95,7 @@ const Contact = () => {
             {/* Phone */}
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <Phone className="w-5 h-5 text-accent" />
+                <Phone className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Telefone</h3>
@@ -107,12 +111,13 @@ const Contact = () => {
             {/* Email */}
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <Mail className="w-5 h-5 text-accent" />
+                <Mail className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Email</h3>
                 <a
                   href="mailto:vdvrenov@gmail.com"
+                  onClick={handleCopyEmail}
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   vdvrenov@gmail.com
@@ -123,7 +128,7 @@ const Contact = () => {
             {/* Location */}
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-5 h-5 text-accent" />
+                <MapPin className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Localização</h3>
@@ -134,7 +139,7 @@ const Contact = () => {
             </div>
 
             {/* Social Links */}
-            <div className="px-14 pt-6 border-t border-border ">
+            <div className="px-14 pt-6 border-t border-border">
               <div className="flex gap-4">
                 <a
                   href="https://facebook.com/people/VDVRenov/61581317054101/"
@@ -174,35 +179,25 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="O seu nome"
                     required
-                    className="bg-background"
+                    className="bg-background placeholder:text-muted-foreground/40"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
+                  <Label htmlFor="contact">
+                    Contacto * <span className="text-muted-foreground text-xs font-normal">(email ou número)</span>
+                  </Label>
                   <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
+                    id="contact"
+                    name="contact"
+                    value={formData.contact}
                     onChange={handleChange}
                     placeholder="email@exemplo.com"
                     required
-                    className="bg-background"
+                    className="bg-background placeholder:text-muted-foreground/40"
                   />
                 </div>
               </div>
-              <div className="space-y-2 mb-6">
-                <Label htmlFor="phone">Telefone</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+351 900 000 000"
-                  className="bg-background"
-                />
-              </div>
+
               <div className="space-y-2 mb-8">
                 <Label htmlFor="message">Mensagem *</Label>
                 <Textarea
@@ -213,7 +208,7 @@ const Contact = () => {
                   placeholder="Descreva o seu projeto ou questão..."
                   rows={5}
                   required
-                  className="bg-background resize-none"
+                  className="bg-background resize-none placeholder:text-muted-foreground/40"
                 />
               </div>
               <Button

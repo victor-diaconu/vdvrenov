@@ -54,7 +54,7 @@ const Header = () => {
             <img
               src="/logo/vdvrenov.png"
               alt="VDV Renov Logo"
-               className="w-16 object-contain"
+               className="h-16 object-contain"
             />
             <a
               href="#inicio"

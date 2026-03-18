@@ -38,8 +38,8 @@ const Hero = () => {
           <div className="mb-8">
             <img
               src="/logo/wide.png"
-              alt="VDV Renov"
-              className="mx-auto w-96 object-contain"
+              alt="VDVRenov"
+              className="mx-auto w-64 sm:w-80 md:w-96 lg:w-[28rem] object-contain"
             />
           </div>
           {/* Badge */}
