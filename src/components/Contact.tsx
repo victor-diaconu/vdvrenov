@@ -39,7 +39,7 @@ const Contact = () => {
     try {
       // Send form data to FormSubmit (https://formsubmit.co/)
       // FormSubmit forwards the data to vdvrenov@gmail.com
-      const response = await fetch("https://formsubmit.co/vdvrenov@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/vdvrenov@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
