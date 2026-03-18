@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import ReactGA from "react-ga4";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
@@ -21,6 +22,14 @@ const Contact = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+   const handleClickSubmit = () => {
+    ReactGA.event({
+      category: "Contact",
+      action: "Clicked Submit Button",
+      label: "Contact Form",
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -205,6 +214,7 @@ const Contact = () => {
                 />
               </div>
               <Button
+                onClick={handleClickSubmit}
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-lg shadow-soft hover:shadow-medium transition-all duration-300"

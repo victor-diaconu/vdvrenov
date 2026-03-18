@@ -13,6 +13,8 @@ import NotFound from "./pages/NotFound";
 
 // Replace with your GA4 Measurement ID
 const TRACKING_ID = "G-LGHDRKQKN4";
+const isLocal = window.location.hostname === "localhost";
+
 ReactGA.initialize(TRACKING_ID);
 
 const queryClient = new QueryClient();

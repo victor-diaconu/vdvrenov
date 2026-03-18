@@ -1,4 +1,5 @@
 import { MessageCircle } from "lucide-react";
+import ReactGA from "react-ga4";
 
 const WhatsAppButton = () => {
   const phoneNumber = "351969706614"; // Replace with actual number
@@ -7,11 +8,21 @@ const WhatsAppButton = () => {
   );
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
+    const handleClick = () => {
+    ReactGA.event({
+      category: "Contact",
+      action: "Clicked WhatsApp Button",
+      label: whatsappUrl,
+    });
+  };
+
+
   return (
     <a
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleClick}
       className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20BA5C] rounded-full flex items-center justify-center shadow-elegant hover:shadow-medium transition-all duration-300 hover:scale-110 group"
       aria-label="Contactar via WhatsApp"
     >

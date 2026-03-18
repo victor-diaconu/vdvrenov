@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ReactGA from "react-ga4";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navLinks = [
@@ -24,10 +25,20 @@ const Header = () => {
   }, []);
 
   const handleNavClick = (href: string) => {
-    setIsOpen(false);
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
+  setIsOpen(false);
+  
+  // Track the click
+  ReactGA.event({
+    category: "Navigation",
+    action: "Clicked Nav Link",
+    label: href,
+  });
+
+  console.log("Nav clicked →", href);
+
+  const element = document.querySelector(href);
+  element?.scrollIntoView({ behavior: "smooth" });
+};
 
   return (
     <header
